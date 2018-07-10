@@ -21,13 +21,28 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
     <style>
+      .reveal .slide-background.present {
+        opacity: .75;
+      }
       .reveal section img.clean {
         background: none;
         border: none;
         box-shadow: none; }
+      .reveal a {
+        //color: #00A0D2;
+        //color: #99d9ed;
+        color: #bfe7f3;
+        //color: #e5f5fa;
+      }
+      .tint {
+        opacity: .3;
+      }
+      .tint > * {
+        opacity: 1;
+      }
 
       .shadow {
-        text-shadow: 2px 1px 5px #222 !important;
+        text-shadow: 2px 2px 0px #191E23 !important;
       }
 
       .twitter-tweet-rendered {
@@ -47,10 +62,11 @@
         </section>
 
         <section data-markdown data-background-image="media/tim-easley-326493-unsplash.jpg">
-          <textarea data-template>
-            ## Nobody Puts WordPress in a Container <!-- .element: class="shadow" -->
+          <textarea data-template >
+            # Nobody Puts WordPress in a Container <!-- .element: class="shadow" -->
+            ## Docker, GitLab and Continuous Integration <!-- .element: class="shadow" -->
 
-            [@_mhenderson](https://twitter.com/_mhenderson) <!-- .element: class="shadow" -->
+            [@_mhenderson](https://twitter.com/_mhenderson)<!-- .element: class="shadow" --> | [#wpcampus](https://twitter.com/hashtag/WPCampus?src=hash) <!-- .element: class="shadow" -->
           </textarea>
         </section>
 
@@ -70,9 +86,552 @@
 
         <section data-markdown>
           <textarea data-template>
+            ## About Me
+
+            * Web Smithy for Adams State <!-- .element: class="fragment" -->
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            <img class="clean" src="media/web-smithy.jpg" alt="Mike Henderson, Web Smithy">
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ## About Me
+
+            * Web Smithy for [Adams State](https://www.adams.edu)
+            * Running WordPress µ since 2009 <!-- .element: class="fragment" -->
+            * Big site transition in 2018 <!-- .element: class="fragment" -->
 
           </textarea>
         </section>
+
+        <!-- legacy deploy section -->
+        <section>
+        <section data-markdown>
+          <textarea data-template>
+            ## How do you deploy WordPress?
+          </textarea>
+        </section>
+        <section data-background-video="media/hold-on.mp4"></section>
+        <section data-markdown>
+          <textarea data-template>
+            ### Hold on to your …
+
+            * Blogs server<!-- .element: class="fragment" -->
+            * Main site changes things <!-- .element: class="fragment" -->
+          </textarea>
+        </section>
+        <section data-background-video="media/unix-system.mp4"></section>
+        <section data-markdown>
+          <textarea data-template>
+            ### It's a UNIX system,
+            ### I know this …
+          </textarea>
+        </section>
+
+        </section>
+        <!-- end legacy deploy section -->
+
+        <section data-markdown data-background-image="media/fabio-ballasina-385482-unsplash.jpg">
+          <textarea data-template>
+
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            * Git
+            * Docker
+            * GitLab CI/CD
+          </textarea>
+        </section>
+
+        <!-- get good with git -->
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## Get good with Git
+
+              ### Git with the program? <!-- .element: class="fragment" -->
+
+              ### Git into the groove? <!-- .element: class="fragment" -->
+
+            </textarea>
+          </section>
+
+          <section>
+            <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Git is an awesome robot in a clown suit.</p>&mdash; Brian Panulla (@bpanulla) <a href="https://twitter.com/bpanulla/status/996826753812185088?ref_src=twsrc%5Etfw">May 16, 2018</a></blockquote>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ## Git Flow of adams.edu
+
+              * Develop on Desktop <!-- .element: class="fragment" -->
+              * Prove on Local <!-- .element: class="fragment" -->
+              * Push to Remote <!-- .element: class="fragment" -->
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Workflow for theme/plugin
+            </textarea>
+          </section>
+
+          <section>
+              <p>Create branch</p>
+              <pre><code class="bash" data-trim data-noescape>
+                git checkout -b card-element
+              </code></pre>
+
+              <pre class="fragment"><code class="bash" data-trim>
+                # same as
+                git branch card-element
+                git checkout card-element
+              </code></pre>
+          </section>
+
+          <section>
+            <p>Work on feature/issue</p>
+            <pre><code class="bash" data-trim data-noescape>
+              git commit -a -m "added new card-element"
+            </code></pre>
+          </section>
+
+          <section >
+            <p>Merge in branch</p>
+            <pre><code class="bash" data-trim data-noescape>
+              git branch
+              git checkout master
+              # check with remote
+              git pull origin master
+              git merge card-element
+
+              <span class="fragment"># optionally delete branch when done
+              git branch -d card-element</span>
+            </code></pre>
+          </section>
+
+          <section>
+            <p>Send to GitLab</p>
+            <pre><code class="bash" data-trim data-noescape>
+              # optionally tag 2018-# or tag in GitLab
+              git push origin master
+            </code></pre>
+
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Premium theme/plugins not available on WordPress.org
+                * Update on Local <!-- .element: class="fragment" -->
+                * Send to GitLab <!-- .element: class="fragment" -->
+                  * may require a force push <!-- .element: class="fragment" -->
+                * Tag with Version Number from Author <!-- .element: class="fragment" -->
+
+              <small class="fragment">[Delicious Brains – Composer Support For Premium Plugins](https://deliciousbrains.com/composer-premium-wordpress-plugins/)</small>
+
+            </textarea>
+          </section>
+
+        </section>
+
+        <!-- Docker -->
+        <section>
+          <section data-markdown data-background-image="media/vidar-nordli-mathisen-641374-unsplash.jpg">
+            <textarea data-template>
+              ## Intro to Docker <!-- .element: class="shadow" -->
+
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              * Wrapper around Linux containers
+              * Often compared to VM
+              * VM is entire computer/server
+              * Containers share the Linux kernel
+
+              <img class="clean" src="media/docker-vertical.png" width="200px" alt="docker logo">
+
+            </textarea>
+            <aside class="notes">
+              vm thinks has real hardware, take ram memory
+              share kernel and not extra layer entire computer,
+              just enough to make it what it needs to be
+              build what it need to be ubuntu for example
+              cont has normally one process running
+            </aside>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              * Build once run anywhere
+              * Developer worries about what is inside
+              * Operations concerned about outside of container
+
+              <img class="clean" src="media/docker-vertical.png" width="200px" alt="docker logo">
+            </textarea>
+
+            <aside class="notes">
+              inside: code, libraries, apps, data
+              outside: network config, logging, monitoring, scaling
+            </aside>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              * Typically used with a command line
+              * Working with a Dockerfile
+
+              <img class="clean" src="media/docker-vertical.png" width="200px" alt="docker logo">
+            </textarea>
+            <aside class="notes">
+              are gui interfaces, Kitematic,
+              Local (Flywheel) docker underneath
+              GitLab handles docker directly with CI/CD
+            </aside>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Define a Dockerfile
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              *visualization of dockerfile*
+            </textarea>
+          </section>
+
+          <section>
+            <h3>Dockerfile</h3>
+            <pre><code data-trim data-noescape class="dockerfile">
+              FROM wordpress:4.9.7-apache
+
+              LABEL maintainer="Mike Henderson mhenderson@adams.edu"
+
+              RUN apt-get update && apt-get install -y \
+                curl zip unzip git libldap2-dev \
+                && rm -rf /var/lib/apt/lists/* \
+                && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+                && docker-php-ext-install ldap \
+                && apt-get purge -y --auto-remove libldap2-dev \
+                && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
+
+              RUN mkdir -p /root/.ssh
+              COPY id_rsa /root/.ssh/id_rsa
+              RUN chmod 600 /root/.ssh/id_rsa
+              RUN echo "Host ourGitLab.adams.edu\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+
+              ## Pull in Parent Theme
+              RUN git clone -b 2.2.5 --depth 1 git@ourGitLab.adams.edu:web-dev/jumpstart.git /usr/src/wordpress/wp-content/themes/jumpstart
+
+              ## Pull in Adams Child Theme
+              RUN git clone -b 1.26 --depth 1 git@ourGitLab.adams.edu:web-dev/adamsstate.git /usr/src/wordpress/wp-content/themes/adamsstate
+
+              ## Pull in wp-all-import
+              RUN git clone -b 4.5.1 --depth 1 git@ourGitLab.adams.edu:web-dev/wp-all-import-pro.git /usr/src/wordpress/wp-content/plugins/wp-all-import-pro
+
+              ## Pull in user-role-editor-pro
+              RUN git clone -b 4.46 --depth 1 git@ourGitLab.adams.edu:web-dev/user-role-editor-pro.git /usr/src/wordpress/wp-content/plugins/user-role-editor-pro
+
+              ## Pull in composer file and run
+              COPY composer.json .
+              RUN composer install --verbose --profile --prefer-dist --no-autoloader
+
+              # Make NFS mount point, set ownership, symlink into wordpress
+              RUN mkdir /uploads
+              RUN chown www-data:www-data /uploads
+              RUN ln -s /uploads /usr/src/wordpress/wp-content/uploads
+            </code></pre>
+            <aside class="notes">
+              -b target branch
+              --depth small optimization
+            </aside>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Composer / WPackagist
+
+              * Mirror to WordPress directory
+              * Define custom repository
+              * Load in plugins/themes by tag
+              * Define install path
+            </textarea>
+            <aside class="notes">
+              wild card tags
+              good for noisy plugins, frequent wpseo
+            </aside>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Composer / WPackagist
+
+              <pre><code class="json">
+                {
+                  "name": "adams/www-wordpress",
+                  "description": "Use wpackagist to install plugins",
+                  "repositories":[
+                    {
+                      "type":"composer",
+                      "url":"https://wpackagist.org"
+                    }
+                  ],
+                  "type" : "project",
+                  "require": {
+                    "composer/installers" : "~1.0",
+                    "wpackagist-plugin/custom-post-type-ui":"1.5.8",
+                    "wpackagist-plugin/cms-tree-page-view":"1.5",
+                    "wpackagist-plugin/enable-media-replace":"3.2.6",
+                    "wpackagist-plugin/resmushit-image-optimizer":"0.1.15",
+                    "wpackagist-plugin/theme-blvd-layout-builder":"2.2.7",
+                    "wpackagist-plugin/theme-blvd-shortcodes":"1.6.7",
+                    "wpackagist-plugin/theme-blvd-widget-areas":"1.3.0",
+                    "wpackagist-plugin/wordpress-seo":"7.*",
+                    "wpackagist-plugin/wpdirauth":"1.10.5",
+                    "wpackagist-plugin/wp-super-cache":"1.6.0"
+                  },
+                  "extra" : {
+                    "installer-paths": {
+                      "/usr/src/wordpress/wp-content/plugins/{$name}/": ["type:wordpress-plugin"]
+                    }
+                  }
+                }
+              </code></pre>
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+
+              <img src="media/www-docker-repo.png" alt="docker file in GitLab with CI file, composer.json, id_rsa, and entrypoint script">
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              * Container is auto built
+              * Tag and add to Repository
+
+            </textarea>
+            <aside class="notes">
+              gitlab ci yml file
+            </aside>
+          </section>
+
+        </section>
+        <!-- end Docker -->
+
+        <!-- GitLab -->
+        <section>
+          <section data-markdown>
+            <textarea data-template>
+              ## What is GitLab
+
+              <img class="clean" src="media/gitlab-logo-square.svg" alt="GitLab logo" >
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### Single Application for all stages of DevOps
+              * Product
+              * Development
+              * QA
+              * Security
+              * Operations
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ### Integrated Teams Working Together
+              * System Administrators
+              * Banner (CRM) Team
+              * Web Development
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              * Community Edition
+
+              * [GitLab Gold/Ultimate Educational Pricing](https://about.gitlab.com/education/)
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ### GitLab is very invested in CI/CD DevOps
+
+              #### DevOps Lifecycle
+
+              Plan, Create, Verify, Package,
+
+              Release, Configure, Monitor
+            </textarea>
+            <aside class="notes">
+              gitlab describes the gitlab devops lifecycle
+              Create Graphic SVG showing what team is responsible for each stage
+            </aside>
+          </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### DevOps Lifecycle
+            <img src="media/cicd_pipeline_infograph.png" alt="code, commit, related code, ci pipeline, test, cd pipeline">
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            *visualization current system pipeline*
+            <img src="media/docker2x.png" alt="">
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Docker Compose
+
+            * Pulls in main WP from registry <!-- .element: class="fragment" -->
+            * Setup of other Containers <!-- .element: class="fragment" -->
+              * NGINX, phpMyAdmin, Database <!-- .element: class="fragment" -->
+            * Setup of Networks, Volumes, Storage <!-- .element: class="fragment" -->
+            * Error Log configs <!-- .element: class="fragment" -->
+          </textarea>
+          <aside class="notes">
+            wrapper around docker api
+            to control containers, lifecycle
+          </aside>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Docker Compose
+
+            <img src="media/docker-compose2x.png" alt="Docker Compose">
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ### Deploy to Swarm
+
+            <img class="" src="media/deploy-to-swarm.png" alt="deploy to swarm interface in GitLab">
+          </textarea>
+        </section>
+
+        </section>
+        <!-- end GitLab -->
+
+        <section>
+
+        <section data-markdown data-background-image="media/kai-gradert-456602-unsplash.jpg">
+          <textarea data-template>
+            ## Lessons Learned <!-- .element: class="shadow" -->
+          </textarea>
+        </section>
+
+        <section data-markdown >
+          <textarea data-template>
+            ## Lessons Learned
+
+            * Lack of Command Line <!-- .element: class="fragment" -->
+            * Swarm networking/scaling issues <!-- .element: class="fragment" -->
+            * Clean out registry builds <!-- .element: class="fragment" -->
+            * Remember deploy keys <!-- .element: class="fragment" -->
+
+          </textarea>
+          <aside class="notes">
+            get used to,
+            can run though interactive on local
+            added access to phpMyAdmin
+            harder to trouble shoot on server
+            logging,
+            builds hidden in container registry
+            keys needed to bring in projects between repos
+          </aside>
+        </section>
+      </section> <!-- End Lessons -->
+
+        <section>
+          <section data-markdown data-background-image="media/chuttersnap-255213-unsplash.jpg">
+            <textarea data-template>
+              ## Future Improvements <!-- .element: class="shadow" -->
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Future Improvements
+
+              * More CI / Auto Testing <!-- .element: class="fragment" -->
+              * Fancy import to Dev <!-- .element: class="fragment" -->
+              * WPCLI <!-- .element: class="fragment" -->
+              * Kubernetes <!-- .element: class="fragment" -->
+                * [Matt Lauer - Fri 11am](https://2018.wpcampus.org/schedule/kubernetes-in-higher-education/) <!-- .element: class="fragment" -->
+
+            </textarea>
+            <aside class="notes">
+              auto testing GitLab
+              doing what you are doing manually, then automate
+              doesn't have to be complete process
+              incremental, sass analogy
+
+              import database from live into dev
+            </aside>
+          </section>
+
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ## Special Thanks
+
+            * Adams State University System Admins
+              * Cameron Miller
+              * Randall Smith
+            * [Charles Fulton](https://sites.lafayette.edu/fultonc/2018/04/28/catapulting-rocks/)
+
+          </textarea>
+        </section>
+        <section>
+        <section data-markdown data-background-image="media/daniel-van-den-berg-638062-unsplash.jpg">
+          <textarea data-template>
+            ### References / Resources <!-- .element: class="shadow" -->
+          </textarea>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ### References / Resources
+
+            * [Servers for Hackers](https://serversforhackers.com/)
+            * [Docker Introduction](https://www.slideshare.net/dotCloud/docker-intro-november)
+            * [GitLab Continuous Integration & Deployment](https://about.gitlab.com/features/gitlab-ci-cd/)
+            * [Getting Started with Continuous Integration and WordPress](https://carlalexander.ca/continuous-integration-wordpress/)
+            * [Continuous Delivery With Gitlab, Docker And Traefik On A Dedicated Server](https://thecodingmachine.io/continuous-delivery-on-a-dedicated-server)
+          </textarea>
+        </section>
+      </section>
+
+        <section data-markdown data-state="" >
+          <textarea data-template>
+            ## Questions? <!-- .element: class="shadow" -->
+
+            [@_mhenderson](https://twitter.com/_mhenderson)<!-- .element: class="shadow" --> | [#wpcampus](https://twitter.com/hashtag/WPCampus?src=hash) <!-- .element: class="shadow" -->
+
+            <img class="clean" src="media/eduwapuu-white-stroke.svg" height="200" alt="eduwapuu">
+          </textarea>
+        </section>
+
 			</div>
 		</div>
 
@@ -86,11 +645,12 @@
 			Reveal.initialize({
 
         history: true,
-
+        progress: false,
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
+          { src: '../reveal.js-plugins/embed-tweet/embed-tweet.js'},
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
