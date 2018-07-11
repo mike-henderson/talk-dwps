@@ -340,13 +340,13 @@
             <h3>Dockerfile Cont.</h3>
             <pre><code data-trim data-noescape class="dockerfile">
               ## Pull in Parent Theme
-              RUN git clone -b 2.2.5 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/jumpstart.git <br>  /usr/src/wordpress/wp-content/themes/jumpstart
+              RUN git clone -b 2.2.5 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/jumpstart.git \<br>  /usr/src/wordpress/wp-content/themes/jumpstart
 
               ## Pull in Adams Child Theme
-              RUN git clone -b 1.26 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/adamsstate.git <br>  /usr/src/wordpress/wp-content/themes/adamsstate
+              RUN git clone -b 1.26 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/adamsstate.git \<br>  /usr/src/wordpress/wp-content/themes/adamsstate
 
               ## Pull in wp-all-import
-              RUN git clone -b 4.5.1 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/wp-all-import-pro.git <br>  /usr/src/wordpress/wp-content/plugins/wp-all-import-pro
+              RUN git clone -b 4.5.1 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/wp-all-import-pro.git \<br>  /usr/src/wordpress/wp-content/plugins/wp-all-import-pro
             </code></pre>
           </section>
           <section>
@@ -426,7 +426,7 @@
               ## Magic Begins in GitLab
 
               * Image is auto built
-              * Tagged and added to Repository
+              * Tagged and added to Registry
 
             </textarea>
             <aside class="notes">
@@ -609,6 +609,10 @@
             * Transparency <!-- .element: class="fragment" -->
             * Testing and Availability <!-- .element: class="fragment" -->
           </textarea>
+
+          <aside class="notes">
+            versioning entire server environment  
+          </aside>
         </section>
 
         <section data-markdown data-background-image="media/kai-gradert-456602-unsplash.jpg">
