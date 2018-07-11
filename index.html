@@ -307,7 +307,7 @@
 
           <section data-markdown>
             <textarea data-template>
-              *visualization of dockerfile*
+              <img src="media/wp-docker2x.png" alt="Building the Adams WordPress Container">
             </textarea>
           </section>
 
@@ -317,7 +317,11 @@
               FROM wordpress:4.9.7-apache
 
               LABEL maintainer="Mike Henderson mhenderson@adams.edu"
-
+            </code></pre>
+          </section>
+          <section>
+            <h3>Dockerfile Cont.</h3>
+            <pre><code data-trim data-noescape class="dockerfile">
               RUN apt-get update && apt-get install -y \
                 curl zip unzip git libldap2-dev \
                 && rm -rf /var/lib/apt/lists/* \
@@ -330,22 +334,27 @@
               COPY id_rsa /root/.ssh/id_rsa
               RUN chmod 600 /root/.ssh/id_rsa
               RUN echo "Host ourGitLab.adams.edu\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
-
+            </code></pre>
+          </section>
+          <section>
+            <h3>Dockerfile Cont.</h3>
+            <pre><code data-trim data-noescape class="dockerfile">
               ## Pull in Parent Theme
-              RUN git clone -b 2.2.5 --depth 1 git@ourGitLab.adams.edu:web-dev/jumpstart.git /usr/src/wordpress/wp-content/themes/jumpstart
+              RUN git clone -b 2.2.5 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/jumpstart.git <br>  /usr/src/wordpress/wp-content/themes/jumpstart
 
               ## Pull in Adams Child Theme
-              RUN git clone -b 1.26 --depth 1 git@ourGitLab.adams.edu:web-dev/adamsstate.git /usr/src/wordpress/wp-content/themes/adamsstate
+              RUN git clone -b 1.26 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/adamsstate.git <br>  /usr/src/wordpress/wp-content/themes/adamsstate
 
               ## Pull in wp-all-import
-              RUN git clone -b 4.5.1 --depth 1 git@ourGitLab.adams.edu:web-dev/wp-all-import-pro.git /usr/src/wordpress/wp-content/plugins/wp-all-import-pro
-
-              ## Pull in user-role-editor-pro
-              RUN git clone -b 4.46 --depth 1 git@ourGitLab.adams.edu:web-dev/user-role-editor-pro.git /usr/src/wordpress/wp-content/plugins/user-role-editor-pro
-
+              RUN git clone -b 4.5.1 --depth 1 <br>  git@ourGitLab.adams.edu:web-dev/wp-all-import-pro.git <br>  /usr/src/wordpress/wp-content/plugins/wp-all-import-pro
+            </code></pre>
+          </section>
+          <section>
+            <h3>Dockerfile Cont.</h3>
+            <pre><code data-trim data-noescape class="dockerfile">
               ## Pull in composer file and run
               COPY composer.json .
-              RUN composer install --verbose --profile --prefer-dist --no-autoloader
+              RUN composer install <br>  --verbose --profile --prefer-dist --no-autoloader
 
               # Make NFS mount point, set ownership, symlink into wordpress
               RUN mkdir /uploads
@@ -391,15 +400,9 @@
                   "require": {
                     "composer/installers" : "~1.0",
                     "wpackagist-plugin/custom-post-type-ui":"1.5.8",
-                    "wpackagist-plugin/cms-tree-page-view":"1.5",
-                    "wpackagist-plugin/enable-media-replace":"3.2.6",
-                    "wpackagist-plugin/resmushit-image-optimizer":"0.1.15",
-                    "wpackagist-plugin/theme-blvd-layout-builder":"2.2.7",
-                    "wpackagist-plugin/theme-blvd-shortcodes":"1.6.7",
-                    "wpackagist-plugin/theme-blvd-widget-areas":"1.3.0",
+                    …
                     "wpackagist-plugin/wordpress-seo":"7.*",
                     "wpackagist-plugin/wpdirauth":"1.10.5",
-                    "wpackagist-plugin/wp-super-cache":"1.6.0"
                   },
                   "extra" : {
                     "installer-paths": {
@@ -420,8 +423,10 @@
 
           <section data-markdown>
             <textarea data-template>
-              * Container is auto built
-              * Tag and add to Repository
+              ## Magic Begins in GitLab
+
+              * Image is auto built
+              * Tagged and added to Repository
 
             </textarea>
             <aside class="notes">
@@ -459,6 +464,16 @@
               * Banner (CRM) Team
               * Web Development
             </textarea>
+
+            <aside class="notes">
+              teams working Together
+              not that ops team doesn't trust our development Teams
+              don't need to give them a reason to.
+              ops team likes to know what is running
+              ops can deal with outside containers
+              dev deals with inside of container
+
+            </aside>
           </section>
 
           <section data-markdown>
@@ -489,12 +504,15 @@
           <textarea data-template>
             ### DevOps Lifecycle
             <img src="media/cicd_pipeline_infograph.png" alt="code, commit, related code, ci pipeline, test, cd pipeline">
+            Two CI/CD processes
           </textarea>
         </section>
 
         <section data-markdown>
           <textarea data-template>
-            *visualization current system pipeline*
+            ### Adams WP Image CI/CD
+
+            <img src="media/adams-wp-ci.png" alt="Adams WP Image CI/CD">
 
           </textarea>
         </section>
@@ -506,7 +524,7 @@
             * Pulls in main WP from registry <!-- .element: class="fragment" -->
             * Setup of other Containers <!-- .element: class="fragment" -->
               * NGINX, phpMyAdmin, Database <!-- .element: class="fragment" -->
-            * Setup of Networks, Volumes, Storage <!-- .element: class="fragment" -->
+            * Setup of Networks, Volumes <!-- .element: class="fragment" -->
             * Error Log configs <!-- .element: class="fragment" -->
           </textarea>
           <aside class="notes">
@@ -517,12 +535,52 @@
 
         <section data-markdown>
           <textarea data-template>
+            ### Adams Compose CI/CD
+            <img src="media/adams-compose-ci.png" alt="Adams Compose CI/CD">
+          </textarea>
+        </section>
+
+        <section>
+          <h3>Docker Compose YML Excerpt</h3>
+            <pre><code class="yaml" data-trim data-noescape>
+              version: '3'
+              networks:
+                wwwtest
+                …
+              services:
+                 wwwtest-mariadb:
+                   image: mariadb:10.2.14
+                …
+                 wwwtest-wordpress:
+                   image: registry.adams.edu/web-dev/www-docker:2018-27
+                   volumes:
+                     - type: volume
+                       source: wwwtest-uploads
+                       target: /uploads
+            </code></pre>
+        </section>
+
+        <!-- <section data-markdown>
+          <textarea data-template>
             ### Docker Compose
 
             <img src="media/docker-compose2x.png" alt="Docker Compose">
           </textarea>
+        </section> -->
+        <section>
+          <h3>Manual Deploy</h3>
+          <pre><code class="yaml" data-trim data-noescape>
+            before_script:
+              - docker info
+            deploy-to-swarm:
+              stage: deploy
+              tags:
+                - swarm
+              script:
+                - docker stack deploy --with-registry-auth <br>--compose-file=docker-compose.yml www
+              when: manual
+          </code></pre>
         </section>
-
         <section data-markdown>
           <textarea data-template>
             ### Deploy to Swarm
@@ -536,6 +594,23 @@
 
         <section>
 
+          <section data-markdown data-background-image="media/mauro-licul-388509-unsplash.jpg">
+            <textarea data-template>
+              ## Worth Doing?<!-- .element: class="shadow" -->
+            </textarea>
+          </section>
+
+        <section data-markdown>
+          <textarea data-template>
+            ## Worth Doing?
+
+            * Easy Rollback <!-- .element: class="fragment" -->
+            * Future Collaboration <!-- .element: class="fragment" -->
+            * Transparency <!-- .element: class="fragment" -->
+            * Testing and Availability <!-- .element: class="fragment" -->
+          </textarea>
+        </section>
+
         <section data-markdown data-background-image="media/kai-gradert-456602-unsplash.jpg">
           <textarea data-template>
             ## Lessons Learned <!-- .element: class="shadow" -->
@@ -546,7 +621,8 @@
           <textarea data-template>
             ## Lessons Learned
 
-            * Lack of Command Line <!-- .element: class="fragment" -->
+            * Wrapping your head around Docker <!-- .element: class="fragment" -->
+              * Lack of Command Line <!-- .element: class="fragment" -->
             * Swarm networking/scaling issues <!-- .element: class="fragment" -->
             * Clean out registry builds <!-- .element: class="fragment" -->
             * Remember deploy keys <!-- .element: class="fragment" -->
@@ -577,9 +653,10 @@
 
               * More CI / Auto Testing <!-- .element: class="fragment" -->
               * Fancy import to Dev <!-- .element: class="fragment" -->
+              * Replicas and Prefetch <!-- .element: class="fragment" -->
               * WPCLI <!-- .element: class="fragment" -->
               * Kubernetes <!-- .element: class="fragment" -->
-                * [Matt Lauer - Fri 11am](https://2018.wpcampus.org/schedule/kubernetes-in-higher-education/) <!-- .element: class="fragment" -->
+                * [Matt Lauer - Sat 11am](https://2018.wpcampus.org/schedule/kubernetes-in-higher-education/) <!-- .element: class="fragment" -->
 
             </textarea>
             <aside class="notes">
@@ -589,6 +666,10 @@
               incremental, sass analogy
 
               import database from live into dev
+
+              no downtime upgrades
+
+              not married to swarm, switch to kubernetes, workflow is the same
             </aside>
           </section>
 
@@ -598,7 +679,7 @@
           <textarea data-template>
             ## Special Thanks
 
-            * Adams State University System Admins
+            * [Adams State University System Admins](https://www.adams.edu)
               * Cameron Miller
               * Randall Smith
             * [Charles Fulton](https://sites.lafayette.edu/fultonc/2018/04/28/catapulting-rocks/)
