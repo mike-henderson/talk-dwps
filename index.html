@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -450,12 +450,16 @@
           <section data-markdown>
             <textarea data-template>
               ### Single Application for all stages of DevOps
-              * Product
+
               * Development
               * QA
               * Security
               * Operations
             </textarea>
+            <aside class="notes">
+
+
+            </aside>
           </section>
           <section data-markdown>
             <textarea data-template>
@@ -496,7 +500,13 @@
             </textarea>
             <aside class="notes">
               gitlab describes the gitlab devops lifecycle
-              Create Graphic SVG showing what team is responsible for each stage
+
+              issue boards,tracking features, burndown
+              git, merging, tags, web IDE,
+              CI/CD, package to registry, release to prod
+              configure server, swarm, kubernetes
+              monitor, changes in code effect performance
+
             </aside>
           </section>
 
@@ -580,6 +590,9 @@
                 - docker stack deploy --with-registry-auth <br>--compose-file=docker-compose.yml www
               when: manual
           </code></pre>
+          <aside class="notes">
+            check to see if docker exists
+          </aside>
         </section>
         <section data-markdown>
           <textarea data-template>
@@ -611,7 +624,10 @@
           </textarea>
 
           <aside class="notes">
-            versioning entire server environment  
+            versioning is good in general
+            versioning entire server environment
+            brand new server at every deploy
+            audit trail what version is running, what/who broke it
           </aside>
         </section>
 
@@ -657,8 +673,8 @@
 
               * More CI / Auto Testing <!-- .element: class="fragment" -->
               * Fancy import to Dev <!-- .element: class="fragment" -->
-              * Replicas and Prefetch <!-- .element: class="fragment" -->
               * WPCLI <!-- .element: class="fragment" -->
+              * Replicas and Prefetch <!-- .element: class="fragment" -->
               * Kubernetes <!-- .element: class="fragment" -->
                 * [Matt Lauer - Sat 11am](https://2018.wpcampus.org/schedule/kubernetes-in-higher-education/) <!-- .element: class="fragment" -->
 
