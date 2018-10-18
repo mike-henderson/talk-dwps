@@ -67,7 +67,8 @@
             # Nobody Puts WordPress in a Container <!-- .element: class="shadow" -->
             ## Docker, GitLab and Continuous Integration <!-- .element: class="shadow" -->
 
-            [@_mhenderson](https://twitter.com/_mhenderson)<!-- .element: class="shadow" --> | [#wpcampus](https://twitter.com/hashtag/WPCampus?src=hash) <!-- .element: class="shadow" -->
+            [@_mhenderson](https://twitter.com/_mhenderson)<!-- .element: class="shadow" --> | [#heweb18](https://twitter.com/hashtag/heweb18?src=hash) <!-- .element: class="shadow" -->|
+            [#aim3](https://twitter.com/search?q=%23heweb18%20%23aim3)<!-- .element: class="shadow" -->
           </textarea>
         </section>
 
@@ -158,11 +159,6 @@
           <section data-markdown>
             <textarea data-template>
               ## Get good with Git
-
-              ### Git with the program? <!-- .element: class="fragment" -->
-
-              ### Git into the groove&#8253 <!-- .element: class="fragment" -->
-
             </textarea>
           </section>
 
@@ -315,7 +311,7 @@
           <section>
             <h3>Dockerfile</h3>
             <pre><code data-trim data-noescape class="dockerfile">
-              FROM wordpress:4.9.7-apache
+              FROM wordpress:4.9.8-apache
 
               LABEL maintainer="Mike Henderson mhenderson@adams.edu"
             </code></pre>
@@ -551,20 +547,22 @@
         <section>
           <h3>Docker Compose YML Excerpt</h3>
             <pre><code class="yaml" data-trim data-noescape>
-              version: '3'
               networks:
-                wwwtest
+                wwwt
                 …
               services:
-                 wwwtest-mariadb:
+                 wwwt-mariadb:
                    image: mariadb:10.2.14
                 …
-                 wwwtest-wordpress:
-                   image: registry.adams.edu/web-dev/www-docker:2018-27
+                 wwwt-wordpress:
+                   image: registry.adams.edu/web-dev/www-docker:2018-39
                    volumes:
                      - type: volume
-                       source: wwwtest-uploads
+                       source: wwwt-uploads
                        target: /uploads
+                   delpoy:
+                     mode: replicated
+                     replicas: 2
             </code></pre>
         </section>
 
@@ -580,12 +578,12 @@
           <pre><code class="yaml" data-trim data-noescape>
             before_script:
               - docker info
-            deploy-to-swarm:
+            deploy-wwwt:
               stage: deploy
               tags:
                 - swarm
               script:
-                - docker stack deploy --with-registry-auth <br>--compose-file=docker-compose.yml www
+                - docker stack deploy --with-registry-auth <br>--compose-file=docker-compose-wwwt.yml wwwt
               when: manual
           </code></pre>
           <aside class="notes">
@@ -594,9 +592,16 @@
         </section>
         <section data-markdown>
           <textarea data-template>
-            ### Deploy to Swarm
+            ### Pipeline / Deploy
 
-            <img class="" src="media/deploy-to-swarm.png" alt="deploy to swarm interface in GitLab">
+            <img class="" src="media/pipeline-view-deploy-passed.png" alt="pipeline interface in GitLab showing deploy passed and manual deploy jobs">
+          </textarea>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ### Job View
+
+            <img class="" src="media/job-view-success.png" alt="job view interface in GitLab showing  docker deploy success">
           </textarea>
         </section>
 
@@ -674,7 +679,7 @@
               * WPCLI <!-- .element: class="fragment" -->
               * Replicas and Prefetch <!-- .element: class="fragment" -->
               * Kubernetes <!-- .element: class="fragment" -->
-                * [Matt Lauer - Sat 11am](https://2018.wpcampus.org/schedule/kubernetes-in-higher-education/) <!-- .element: class="fragment" -->
+              * Disaster Recovery <!-- .element: class="fragment" -->
 
             </textarea>
             <aside class="notes">
@@ -688,6 +693,8 @@
               no downtime upgrades
 
               not married to swarm, switch to kubernetes, workflow is the same
+
+              move to services that handle containers, digital ocean, amazon, google cloud
             </aside>
           </section>
 
@@ -727,15 +734,9 @@
           <textarea data-template>
             ## Questions? <!-- .element: class="shadow" -->
 
-            [@_mhenderson](https://twitter.com/_mhenderson)<!-- .element: class="shadow" --> | [#wpcampus](https://twitter.com/hashtag/WPCampus?src=hash) <!-- .element: class="shadow" -->
-
-            <img class="clean" src="media/eduwapuu-white-stroke.svg" height="200" alt="eduwapuu">
-          </textarea>
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-
+            [@_mhenderson](https://twitter.com/_mhenderson)<!-- .element: class="shadow" --> | [#heweb18](https://twitter.com/hashtag/heweb18?src=hash) <!-- .element: class="shadow" -->|
+            [#aim3](https://twitter.com/search?q=%23heweb18%20%23aim3)<!-- .element: class="shadow" -->
+            <a href="https://wpcampus.org/"><img class="clean" src="media/eduwapuu-white-stroke.svg" height="200" alt="eduwapuu"></a>
           </textarea>
         </section>
 
